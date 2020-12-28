@@ -48,3 +48,20 @@ keep前后两次step后的函数调用栈
 - 所有mesa函数加断点，直接continue到下个函数，但问题是中间可能会丢失很多已经出栈的信息，导致最后结果没有连贯性
 - 什么时候结束的问题，现在是设定step的次数
 
+## traceFunction.py - 针对单个函数查看该函数从进栈到出栈的函数调用栈
+
+先修改py脚本，设置输出的文件名output_file_name和要打断点的函数名function_to_trace
+```bash
+$ vim traceFunction.py
+
+# set the global variable
+output_file_name = 'output.txt'
+function_to_trace = 'glXSwapBuffers'
+```
+
+启动gdb运行脚本
+```bash
+$ gdb glmark2
+
+(gdb) source traceFunction.py
+```
