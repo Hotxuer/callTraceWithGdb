@@ -65,3 +65,16 @@ $ gdb glmark2
 
 (gdb) source traceFunction.py
 ```
+
+## 调试haven
+heaven程序的benchmark场景其实是通过browser启动的，与./heaven启动的并不是同一个程序（terminal终止heaven程序后benchmark仍可继续执行）。
+所以直接使用gdb启动heaven是无法调试测试场景的。
+
+正确步骤应为：
+- 正常启动heaven browser，点击开始测试场景
+- ps aux | grep heaven得到测试场景的pid
+- sudo gdb
+- attach pid
+- source traceFunction.py
+
+注意traceFunction.py中的gdb.execute('r')应改为gdb.execute('c')，因为此时程序实际已开始运行。
